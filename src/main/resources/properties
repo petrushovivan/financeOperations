@@ -1,0 +1,9 @@
+spring.application.name=financeOperations
+
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.url=
+spring.datasource.driver-class-name=
+
+spring.data.jdbc.dialect=postgresql
+spring.jpa.show-sql=true
