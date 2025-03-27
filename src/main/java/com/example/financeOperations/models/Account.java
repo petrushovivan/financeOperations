@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "account")
 @NoArgsConstructor
@@ -23,14 +25,15 @@ public class Account {
     private double balance;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @Column(name = "isActive")
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions;
+
+    @Column(name = "is_active")
     private boolean isActive;
 
     @Column(name = "currency")
     private String currency;
-
-
 }

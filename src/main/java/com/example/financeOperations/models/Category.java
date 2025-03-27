@@ -22,5 +22,11 @@ public class Category {
     @Column(name = "type")
     private String type;
 
-    public
+    @OneToOne(mappedBy = "category")
+    private Transaction transaction;
+
+    public Category(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 }

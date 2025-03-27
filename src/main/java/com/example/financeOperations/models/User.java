@@ -22,17 +22,16 @@ public class User {
     private String username;
     @Column(name = "email")
     private String email;
-    @Column(name = "passwordHash")
+    @Column(name = "password_hash")
     private int passwordHash;
 
     @OneToMany(mappedBy = "user")
     private List<Account> accounts;
 
-    public User(String password, String email, String username, int id) {
+    public User(String username, String email, String password) {
         this.passwordHash = Objects.hash(password);
         this.email = email;
         this.username = username;
-        this.id = id;
     }
 
     public void setPassword(String password) {
@@ -41,5 +40,14 @@ public class User {
 
     public void addAccount(Account account) {
         this.accounts.add(account);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", passwordHash=" + passwordHash +
+                '}';
     }
 }
