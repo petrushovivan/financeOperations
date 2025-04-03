@@ -1,16 +1,10 @@
 package com.example.financeOperations.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
 
-@Setter
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -34,6 +28,8 @@ public class User {
         this.username = username;
     }
 
+    public User() {}
+
     public void setPassword(String password) {
         this.passwordHash = Objects.hash(password);
     }
@@ -49,5 +45,41 @@ public class User {
                 ", email='" + email + '\'' +
                 ", passwordHash=" + passwordHash +
                 '}';
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getPasswordHash() {
+        return passwordHash;
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }
