@@ -1,9 +1,9 @@
 package com.example.financeOperations.controllers;
 
 import com.example.financeOperations.exeption.UserAlreadyExistException;
+import com.example.financeOperations.exeption.UserNotExistException;
 import com.example.financeOperations.exeption.enums.ExceptionName;
 import com.example.financeOperations.models.User;
-import com.example.financeOperations.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,29 +24,30 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody(required = false) User user) {
+    public ResponseEntity<?> signup(@RequestBody User user) {
         System.out.println(user.toString());
         try {
-            User savedUser = authService.login(user);
+            User savedUser = authService.register(user);
             return ResponseEntity.ok(savedUser);
         }
-        catch (UserAlreadyExistException e){
-            System.out.println(e.getMessage());
+        catch (UserAlreadyExistException e) {
             return new ResponseEntity<>(ExceptionName.USERALREADYEXIST, HttpStatus.BAD_REQUEST);
         }
         catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body(user);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        System.out.println(user.toString());
+    public ResponseEntity<?> login(@RequestBody User user) {
         try {
-            return ResponseEntity.badRequest().body(user);
+            User userToLogin = authService.login(user);
+            return ResponseEntity.ok(userToLogin);
         }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().body(user);
+        catch (UserNotExistException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+
 }
