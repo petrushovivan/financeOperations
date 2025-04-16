@@ -1,11 +1,7 @@
 package com.example.financeOperations.controllers;
 
-import com.example.financeOperations.exeption.UserAlreadyExistException;
-import com.example.financeOperations.exeption.UserNotExistException;
-import com.example.financeOperations.exeption.enums.ExceptionName;
-import com.example.financeOperations.models.User;
+import com.example.financeOperations.models.auth.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,31 +19,13 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody User user) {
-        System.out.println(user.toString());
-        try {
-            User savedUser = authService.register(user);
-            return ResponseEntity.ok(savedUser);
-        }
-        catch (UserAlreadyExistException e) {
-            return new ResponseEntity<>(ExceptionName.USERALREADYEXIST, HttpStatus.BAD_REQUEST);
-        }
-        catch (NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping("/reg")
+    public ResponseEntity<?> reg(@RequestBody AuthRequest authRequest) {
+        return authService.register(authRequest);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        try {
-            User userToLogin = authService.login(user);
-            return ResponseEntity.ok(userToLogin);
-        }
-        catch (UserNotExistException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+            return authService.login(authRequest);
     }
-
-
 }
