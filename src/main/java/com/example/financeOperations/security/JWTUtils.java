@@ -2,49 +2,31 @@ package com.example.financeOperations.security;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.financeOperations.models.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import com.auth0.jwt.JWT;
+import org.springframework.stereotype.Component;
 
-import javax.crypto.KeyGenerator;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+import java.util.Date;
 
+@Component
 public class JWTUtils {
-    @Value("${spring.privateKeyString}")
+    private static final Logger log = LogManager.getLogger(JWTUtils.class);
+
+    @Value("${spring.privateKeyBase64}")
     private String privateKeyString;
+
     @Value("${spring.jwtExpirationMs}")
-    private String jwtExpirationMs;
+    private int jwtExpirationMs;
 
-    private final String publicKeyString;
-
-    public JWTUtils() {
-        publicKeyString = "very secret key";
-    }
-
-    public String generateJWT(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String username = user.getUsername();
-
-        Algorithm alg = Algorithm.RSA256(publicKey(publicKeyString), privateKey(privateKeyString));
-
-        return JWT.create().withSubject(username)
+    public String generateJWT(User user) {
+        String email = user.getEmail() + "$#$" + user.getUsername();
+        byte [] secret = Base64.getDecoder().decode(privateKeyString);
+        Algorithm alg = Algorithm.HMAC256(secret);
+        return JWT.create().withSubject(email)
+                .withExpiresAt(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .sign(alg);
-    }
-
-    private RSAPublicKey publicKey(String publicKeyString) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        byte [] bytes = publicKeyString.getBytes();
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec key = new X509EncodedKeySpec(bytes);
-        return (RSAPublicKey) factory.generatePublic(key);
-    }
-
-    private RSAPrivateKey privateKey(String privateKeyString) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        byte [] bytes = privateKeyString.getBytes();
-        KeyFactory factory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec key = new X509EncodedKeySpec(bytes);
-        return (RSAPrivateKey) factory.generatePrivate(key);
     }
 }

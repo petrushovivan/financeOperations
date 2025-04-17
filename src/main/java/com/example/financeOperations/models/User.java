@@ -18,6 +18,8 @@ public class User {
     private String email;
     @Column(name = "password_hash")
     private int passwordHash;
+    @Column(name = "token")
+    private String token;
 
     @OneToMany(mappedBy = "user")
     private List<Account> accounts;
