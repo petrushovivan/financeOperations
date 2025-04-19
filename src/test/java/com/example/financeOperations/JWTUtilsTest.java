@@ -11,16 +11,18 @@ public class JWTUtilsTest {
     private final JWTUtils utils;
 
     private String validJWT;
+    private String invalidToken;
 
     @Autowired
     public JWTUtilsTest(JWTUtils utils) {
         this.utils = utils;
         validJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDQ5OTAwNTd9.upv_L0Pa6vftikzi5GjK8U-0BpvNPCMMHyJBJx-YeAg";
+        invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDQ5Nzg3MjF9.eEIsHOdyy55zOpSQ3U_uhONfbxKNfjTAyJ3XR6rfLtQ";
     }
 
     @Test
     public void validateJWTMethodTest1() {
-        String jwtKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDQ5Nzg3MjF9.eEIsHOdyy55zOpSQ3U_uhONfbxKNfjTAyJ3XR6rfLtQ";
+        String jwtKey = invalidToken;
         Assertions.assertFalse(utils.validateJWT(jwtKey));
     }
 

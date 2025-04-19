@@ -60,6 +60,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/api/auth");
+    }
+
     private void sendError(HttpServletResponse httpServletResponse, String message) throws IOException {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         Map<String, Object> body = new HashMap<>();
