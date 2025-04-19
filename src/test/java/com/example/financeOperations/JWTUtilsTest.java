@@ -16,7 +16,7 @@ public class JWTUtilsTest {
     @Autowired
     public JWTUtilsTest(JWTUtils utils) {
         this.utils = utils;
-        validJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDQ5OTAwNTd9.upv_L0Pa6vftikzi5GjK8U-0BpvNPCMMHyJBJx-YeAg";
+        validJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDUxNzc5MTJ9.Aec-Gog6AZhBDmRsrWVDlLRDee1lWohyrBueK6OvRVc";
         invalidToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJteUVtYWlsJCMkdXNlcjEiLCJleHAiOjE3NDQ5Nzg3MjF9.eEIsHOdyy55zOpSQ3U_uhONfbxKNfjTAyJ3XR6rfLtQ";
     }
 

@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +19,14 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<?> getAccounts(HttpServletRequest request) {
         return accountService.getAccounts(request);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addAccount(HttpServletRequest request) {
+        return accountService.addAccount(request);
     }
 
 }
