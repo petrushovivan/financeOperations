@@ -6,7 +6,6 @@ import com.example.financeOperations.repositories.UserRepository;
 import com.example.financeOperations.security.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -36,7 +35,7 @@ public class AuthService {
         else {
             userRepository.save(new User(authRequest.getUsername(), authRequest.getEmail(), authRequest.getPassword()));
             Map<String, Object> body = new HashMap<>();
-            body.put("message", "login successful");
+            body.put("message", "register successful");
             body.put("status", true);
             return ResponseEntity.ok(body);
         }
@@ -48,13 +47,19 @@ public class AuthService {
         String password = authRequest.getPassword();
 
         User userToLogin = new User(username, email, password);
+
         User user = userRepository.findUserByEmail(email);
+
         if(user != null && user.equals(userToLogin)) {
             Map<String, Object> body = new HashMap<>();
             String userJWTToken = jwtUtils.generateJWT(user);
             body.put("message", "login successful");
             body.put("status", true);
             body.put("token", userJWTToken);
+
+            user.setToken(userJWTToken);
+
+            userRepository.save(user);
 
             return ResponseEntity.ok().body(body);
         }
