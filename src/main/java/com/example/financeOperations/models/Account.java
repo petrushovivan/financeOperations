@@ -1,17 +1,11 @@
 package com.example.financeOperations.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "account")
-@NoArgsConstructor
-@Setter
-@Getter
 public class Account {
     @Id
     @Column(name = "id")
@@ -36,4 +30,73 @@ public class Account {
 
     @Column(name = "currency")
     private String currency;
+
+    public Account() {
+    }
+
+    public Account(int id, String name, double balance, User user, List<Transaction> transactions, boolean isActive, String currency) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+        this.user = user;
+        this.transactions = transactions;
+        this.isActive = isActive;
+        this.currency = currency;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }
