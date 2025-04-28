@@ -1,4 +1,4 @@
-package com.example.financeOperations.models.accountsEntity;
+package com.example.financeOperations.models.DTOS;
 
 public class AccountDTO {
     private String name;

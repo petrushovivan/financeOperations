@@ -2,7 +2,7 @@ package com.example.financeOperations.services;
 
 import com.example.financeOperations.models.Account;
 import com.example.financeOperations.models.User;
-import com.example.financeOperations.models.accountsEntity.AccountDTO;
+import com.example.financeOperations.models.DTOS.AccountDTO;
 import com.example.financeOperations.repositories.UserRepository;
 import com.example.financeOperations.security.JWTUtils;
 import jakarta.servlet.http.HttpServletRequest;

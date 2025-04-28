@@ -9,9 +9,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "transaction")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Transaction {
     @Id
     @Column(name = "id")
@@ -34,4 +31,64 @@ public class Transaction {
     @OneToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Transaction(int id, double amount, String description, Date date, Account account, Category category) {
+        this.id = id;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+        this.account = account;
+        this.category = category;
+    }
+
+    public Transaction() {
+    }
 }

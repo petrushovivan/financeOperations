@@ -7,9 +7,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "categories")
-@NoArgsConstructor
-@Getter
-@Setter
 public class Category {
     @Id
     @Column(name = "id")
@@ -24,6 +21,48 @@ public class Category {
 
     @OneToOne(mappedBy = "category")
     private Transaction transaction;
+
+    public Category() {
+    }
+
+    public Category(int id, String name, String type, Transaction transaction) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.transaction = transaction;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
 
     public Category(String name, String type) {
         this.name = name;

@@ -1,6 +1,6 @@
 package com.example.financeOperations.controllers;
 
-import com.example.financeOperations.models.accountsEntity.AccountDTO;
+import com.example.financeOperations.models.DTOS.AccountDTO;
 import com.example.financeOperations.services.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
